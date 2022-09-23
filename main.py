@@ -17,7 +17,7 @@ def create_rds_instance(name):
         )
         print(response)
     except Exception as e:
-        print("Exceptiom!")
+        print("Exception!")
         print(e)
     return
 
@@ -37,7 +37,6 @@ def print_instance_list(instance_list):
     for instance in instance_list:
         print(instance['DBInstanceIdentifier'])
         print(instance['DBInstanceClass'])
-        print(instance['DBInstanceIdentifier'])
     print("==================")
     return
 

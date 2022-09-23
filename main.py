@@ -1,4 +1,6 @@
 import boto3
+import sys
+
 boto3.setup_default_session(profile_name='personal')
 client = boto3.client('rds', region_name='us-west-1')
 
@@ -30,8 +32,8 @@ def get_rds_instances():
 
 
 def print_instance_list(instance_list):
-    print("==================")
     print("Listing " + str(len(instance_list)) + " instances:")
+    print("==================")
     for instance in instance_list:
         print(instance['DBInstanceIdentifier'])
         print(instance['DBInstanceClass'])
@@ -59,9 +61,15 @@ def modify_instance(instance_name, new_instance_class):
 
 
 if __name__ == '__main__':
-    new_instance_type = 'db.t2.small'
-    my_instance_name = 'database-instance-01'
-    # create_rds_instance(my_instance_name)
+
+    if len(sys.argv) != 3:
+        print("Incorrect arguments")
+        print("python3 main.py <instance-name> <new-instance-class>")
+        exit(1)
+        
+    my_instance_name = sys.argv[1]
+    new_instance_type = sys.argv[2]
+
     my_instance_list = get_rds_instances()
     print_instance_list(my_instance_list)
     my_instance_type, my_instance_status = check_if_instance_exists(my_instance_list, my_instance_name)

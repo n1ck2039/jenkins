@@ -83,4 +83,5 @@ if __name__ == '__main__':
         else:
             print("Instance status is not available")
             print("Current status is " + my_instance_status)
+            exit(1)
     print("Done!")
